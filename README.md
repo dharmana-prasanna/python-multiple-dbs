@@ -205,3 +205,83 @@ Common issues and solutions:
 ## License
 
 MIT License 
+
+```mermaid
+sequenceDiagram
+participant Alice
+participant Bob as Customer
+actor User
+
+%% This is a comment
+Alice->>Bob: Hello Bob   %% solid arrow, normal message
+Bob-->>Alice: Hi Alice   %% dashed arrow, often used for responses or reads
+
+note right of Alice: This is a note
+note left of Bob: Another note
+note over Alice,Bob: Shared note
+
+activate Alice
+deactivate Alice
+
+alt Condition A
+    Alice->>Bob: Do A
+else Condition B
+    Alice->>Bob: Do B
+end
+
+opt Optional Step
+    Bob->>Alice: Maybe
+end
+
+loop Every item
+    Alice->>Bob: Process item
+end
+
+Alice->>Alice: Internal processing
+
+rect rgb(191, 223, 255)
+        Alice->>Bob: Highlighted message
+    end
+
+    par Action 1
+        Alice->>Bob: Do A
+    and Action 2
+        Alice->>Charlie: Do B
+    end
+
+    critical Critical section
+        Alice->>Bob: Must do this
+    option Alternative
+        Alice->>Bob: Or this
+    end
+
+    autonumber
+    Alice->>Bob: First
+    Bob->>Alice: Second
+
+loop while items remain
+        Alice->>Bob: Process item
+    end
+
+    loop Process items
+        Alice->>Bob: Check item
+        break if item invalid
+            Alice->>Bob: Stop processing
+        end
+    end
+
+    opt if user is admin
+        Alice->>Bob: Grant access
+    end
+
+        alt Success
+        Alice->>Bob: Success path
+    else Failure
+        Alice->>Bob: Failure path
+    else Timeout
+        Alice->>Bob: Timeout path
+    end
+
+    Alice->>Bob: End session
+    destroy Bob
+```

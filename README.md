@@ -285,12 +285,7 @@ loop while items remain
     Alice->>Bob: End session
     destroy Bob
 
-sequenceDiagram
-    participant User
-    participant Service
-    participant DB
-
-    rect rgb(191, 223, 255)
+rect rgb(191, 223, 255)
         Note over User,DB: <b>Data Validation Process</b><br/>This group handles validation and storage of user data.
         User->>Service: Submit Data
         Service->>Service: Validate Data

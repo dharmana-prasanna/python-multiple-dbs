@@ -234,6 +234,7 @@ opt Optional Step
 end
 
 loop Every item
+    Note over Alice,Bob: <b>Data Validation Process</b><br/>This group handles validation and storage of user data.
     Alice->>Bob: Process item
 end
 
@@ -285,10 +286,4 @@ loop while items remain
     Alice->>Bob: End session
     destroy Bob
 
-rect rgb(191, 223, 255)
-        Note over User,DB: <b>Data Validation Process</b><br/>This group handles validation and storage of user data.
-        User->>Service: Submit Data
-        Service->>Service: Validate Data
-        Service->>DB: Store Valid Data
-    end
 ```

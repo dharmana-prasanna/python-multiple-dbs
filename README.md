@@ -210,11 +210,16 @@ MIT License
 sequenceDiagram
 participant Alice
 participant Bob as Customer
+participant Ram
 actor User
 
-%% This is a comment
-Alice->>Bob: Hello Bob   %% solid arrow, normal message
-Bob-->>Alice: Hi Alice   %% dashed arrow, often used for responses or reads
+rect rgb(191, 223, 255)
+    Note over Alice,Ram: <b>Greeting Exchange</b><br/>This group shows the greeting messages between Alice, Bob, and Ram.
+    Alice->>Bob: Hello Bob   %% solid arrow, normal message
+    Bob-->Ram: Hi Alice   %% dashed arrow, often used for responses or reads
+    Ram-->>Alice: Hi Alice   %% dashed arrow, often used for responses or reads
+end
+
 
 note right of Alice: This is a note
 note left of Bob: Another note

@@ -299,9 +299,10 @@ sequenceDiagram
     participant Bob
     participant Ram
 
-    alt Greeting Exchange
-        Alice->>Bob: Hello Bob   %% solid arrow, normal message
-        Bob-->Ram: Hi Alice   %% dashed arrow, often used for responses or reads
-        Ram-->>Alice: Hi Alice   %% dashed arrow, often used for responses or reads
+    rect rgb(255,255,255)
+        Note over Alice,Ram: <b>Greeting Exchange</b>
+        Alice->>Bob: Hello Bob
+        Bob-->Ram: Hi Alice
+        Ram-->>Alice: Hi Alice
     end
 ```

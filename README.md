@@ -292,3 +292,16 @@ loop while items remain
     destroy Bob
 
 ```
+
+```mermaid
+sequenceDiagram
+    participant Alice
+    participant Bob
+    participant Ram
+
+    alt Greeting Exchange
+        Alice->>Bob: Hello Bob   %% solid arrow, normal message
+        Bob-->Ram: Hi Alice   %% dashed arrow, often used for responses or reads
+        Ram-->>Alice: Hi Alice   %% dashed arrow, often used for responses or reads
+    end
+```

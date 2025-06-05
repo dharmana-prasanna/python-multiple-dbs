@@ -306,3 +306,22 @@ sequenceDiagram
         Ram-->>Alice: Hi Alice
     end
 ```
+## Simple Read with current version
+```mermaid
+sequenceDiagram
+    autonumber
+    participant Client as Client<br/>(External)
+    participant BI as Banking Interfaces<br/>(Cloud OpenShift on AWS)
+    participant FI10 as FinacleIntegrator10<br/>(WebSphere On-Premises)
+    participant FS as FinacleScript<br/>(RHEL Server)
+    participant FDB as FinacleDatabase<br/>(Secured Zone)
+
+    Client->>BI: REST GET /accountinfo (accountId)   
+    BI->>FI10: SOAP request (acctId)
+    FI10->>FS: Call FinacleScript
+    FS->>FDB: Query database
+    FDB-->>FS: Raw query output
+    FS-->>FI10: Processed response
+    FI10-->>BI: SOAP response
+    BI-->>Client: REST response (account info)
+```

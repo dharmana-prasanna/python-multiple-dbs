@@ -314,13 +314,13 @@ sequenceDiagram
     participant BI as BI-AccountInfo<br/>(Cloud OpenShift on AWS)
     participant FI10 as FinacleIntegrator10<br/>(WebSphere On-Premises)
     participant FS as FinacleScript<br/>(RHEL Server)
-    participant FDB as FinacleDatabase<br/>(Secured Zone)
+    participant FDB10 as FinacleDatabase10<br/>(Secured Zone)
 
     Client->>BI: REST GET /accountinfo (accountId)   
     BI->>FI10: SOAP request (acctId)
     FI10->>FS: Call FinacleScript
-    FS->>FDB: Query database
-    FDB-->>FS: Raw query output
+    FS->>FDB10: Query database
+    FDB10-->>FS: Raw query output
     FS->>FS: Massage database output
     FS-->>FI10: Processed response
     FI10-->>BI: SOAP response

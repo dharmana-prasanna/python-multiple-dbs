@@ -710,3 +710,70 @@ class COFHardwareX937Creator:
 - Reduced processing time and costs
 
 The X9.37 format is essential for modern check processing, enabling the electronic exchange of check images and data while maintaining the security and integrity required for financial transactions.
+
+```mermaid
+flowchart LR
+
+%% Swimlanes
+    subgraph lane1 [Vantiv]
+        direction LR
+        pulse[Pulse / DN] --> vantiv[Vantiv]
+        vantiv --> dec{System declined?}
+    end
+
+    subgraph lane2 [Finacle]
+        direction LR
+        fraudBasic{Fraud rules basic?}
+        dataProc[Data Processing]
+        suffFunds{Sufficient funds + acct verified?}
+        assignDecline[Assign decline reason]
+        db[Database]
+    end
+
+    subgraph lane3 [Auth Integration Layer]
+        direction LR
+        dafe[DAFE writes msg to MQ]
+        dail[DAIL - SASFM msg construction]
+        ailStore[AIL Data Store]
+    end
+
+    subgraph lane4 [SASFM]
+        direction LR
+        model[Custom Fraud Model]
+        frRules{Fraud rules met?}
+        caseRules[Case creation rules]
+        snow[Snowflake Analytical Table]
+    end
+
+    subgraph lane5 [Servicing]
+        direction LR
+        bank[Bank FCMS case creation & management]
+        text[Text message CSGI vendor]
+        ui[Case management UI]
+        outQ{Outbound call?}
+        outCall[Outbound call]
+        sfTbl[SF Analytical Tables]
+        atlas[ATLAS for fraud tagging]
+    end
+
+%% Cross‑lane flow
+dec -- Yes --> db
+dec -- No --> fraudBasic
+fraudBasic -- Yes --> db
+fraudBasic -- No --> dataProc
+dataProc --> suffFunds
+suffFunds -- Yes --> assignDecline --> db
+suffFunds -- No --> dafe
+
+dafe --> dail --> ailStore
+dail --> model --> frRules
+frRules -- Yes --> caseRules --> snow
+frRules -- No --> snow
+
+caseRules --> bank
+bank --> text
+bank --> ui --> outQ
+outQ -- Yes --> outCall --> sfTbl
+outQ -- No --> sfTbl
+atlas --> bank
+```
